@@ -8,8 +8,8 @@
 - Rode as Migrations e as Seeds;
 - Crie novos produtos;
  
- -> O formulário tem validação e máscara no campo preço.
- -> No campo pesquisa é possível pesquisar produtos por palavra-chave.
+ <p> -> O formulário tem validação e máscara no campo preço.</p>
+ <p> -> No campo pesquisa é possível pesquisar produtos por palavra-chave.</p>
 
 
 ## Copyright
