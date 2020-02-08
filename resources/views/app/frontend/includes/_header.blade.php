@@ -10,13 +10,15 @@
 
     <link href="{{ asset('template-front/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('template-front/assets/libs/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('template-front/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" />
+   {{--  <link href="{{ asset('template-front/assets/libs/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('template-front/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" /> --}}
 
     <!-- Bootstrap Css -->
     <link href="{{ asset('template-front/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
     <link href="{{ asset('template-front/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <!-- App Css-->
     <link href="{{ asset('template-front/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" />
 
@@ -27,6 +29,18 @@
         }
         .logo h2 {
             color: #fff;
+        }
+        .pesquisa {
+            display: flex;
+        }
+        input.search {
+            border-top-right-radius: 0!important;
+            border-bottom-right-radius: 0!important;
+
+        }
+        .bt-search {
+            border-top-right-radius: 30px;
+            border-bottom-right-radius: 30px;
         }
 
     </style>
@@ -52,10 +66,10 @@
                 </button>
 
                 <!-- App Search-->
-                <form class="app-search d-none d-lg-block">
-                    <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="pesquisar...">
-                        <span class="mdi mdi-magnify"></span>
+                <form class="app-search d-none d-lg-block" action="{{ route('produtos.search') }} " method="GET">
+                    <div class="position-relative pesquisa">
+                        <input type="text" class="form-control search" placeholder="pesquisar..." name="search" required="" />
+                        <button type="submit" class="btn btn-primary btn-sm bt-search"><i class="material-icons">youtube_searched_for</i></button>                        
                     </div>
                 </form>
             </div>

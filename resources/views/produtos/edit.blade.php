@@ -1,29 +1,39 @@
 @extends('layouts.main')
 
-@section('title', 'Asteroide | Teste Janaina')
+@section('title', 'Houpa | Teste Janaina')
 
 @section('content')
 
 	<style type="text/css">
 		
 		.page-content {
-			padding-left: 263px;
+			padding: calc(70px + 24px) calc(24px / 2) 60px calc(24px / 2);
+		}
+		.bt-salvar {
+			margin-top: 20px;
+		}
+		.radio-select {
+			margin-top: 20px;
+		}
+		.button-items a {
+			margin-bottom: -9px!important;
+			margin-left: 3px!important;
 		}
 
 	</style>
 
-	  	<div id="content">
+	  	<div class="main-content">
 			<div class="page-content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
                             <div class="page-title-box d-flex align-items-center justify-content-between">
-                                <h4 class="mb-0 font-size-18">Editar Cliente: {{ $cliente->nome }} {{ $cliente->sobrenome }}</h4>
+                                <h4 class="mb-0 font-size-18">Editar Produto</h4>
 
                                 <div class="page-title-right">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="/">Clientes</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Editar cliente</a></li>
+                                        <li class="breadcrumb-item"><a href="/">Produtos</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Editar produto</a></li>
                                     </ol>
                                 </div>
 
@@ -34,69 +44,63 @@
 					<div class="row">
 						<div class="col-lg-12">
 						   <div class="card">
+						   		@if($errors->any())
+							        <div class="alert alert-danger alert-dismissible fade show mb-0" id="close">
+							            <ul>
+							                @foreach ($errors->all() as $error)
+							                    <li>{{ $error }}</li>
+							                @endforeach
+							            </ul>
+							            <button type="button" class="close" data-dimiss="alert" aria-label="Close">
+							            	<span aria-hidden="true" onclick="fecharAlert();"><strong>&times;</strong></span>
+							            </button>
+							         </div>
+							       @endif
 						   		<div class="card-body">
-				                   <form class="needs-validation" action="{{ route('clientes.update', $cliente->id) }}" method="POST">
+				                   <form action="{{ route('produtos.update', $produto->id) }}" method="POST">
 										
 										@csrf
-                    					{{method_field('PATCH')}}
+                    					{{ method_field('PATCH') }}
 
 				                        <div class="row">
 				                            <div class="col-md-4 mb-3">
-				                                <label for="validationCustom01">Nome</label>
-				                                <input type="text" class="form-control" id="validationCustom01" required name="nome" value="{{ $cliente->nome ?? old('nome') }}" />
+				                                <label>Produto</label>
+				                                <input type="text" class="form-control" placeholder="nome do produto" name="nome" value="{{ ucfirst($produto->nome) ?? old('nome') }}" />
 				                            </div>
 				                            <div class="col-md-4 mb-3">
-				                                <label for="validationCustom02">Sobrenome</label>
-				                                <input type="text" class="form-control" id="validationCustom02" required name="sobrenome" value="{{ $cliente->sobrenome ?? old('sobrenome') }}" />
+				                                <label>Categoria</label>
+				                               	<select class="form-control" name="categoria" id="categoria-wrapper">
+										           <option value="" disabled selected>Selecione</option>
+										           @foreach($categorias as $categoria)
+										              <option value="{{ $categoria->id }}" {{ $categoria->id === $produto->categoria_id ? 'selected' : null }}>{{ ucfirst($categoria->nome) }}
+										              </option>
+										           @endforeach
+										        </select>
 				                            </div>
 				                            <div class="col-md-4 mb-3">
-				                                <label>Data de Nascimento</label>
-				                                <input type="date" class="form-control" id="validationCustom05" required name="nascimento" value="{{ $cliente->nascimento ?? old('nascimento') }}"/>
+				                                <label>Preço</label>
+				                                <input type="text" class="form-control" name="preco" value="{{ $produto->preco ?? old('preco') }}" />
 				                            </div>
-				                        </div>
 
-				                        <div class="row">
-				                            <div class="col-md-6 mb-3">
-				                                <label for="validationCustom03">Endereço</label>
-				                                <input type="text" class="form-control" id="validationCustom04" required name="endereco" value="{{ $cliente->endereco ?? old('endereco') }}" />
-				                            </div>
-				                            <div class="col-md-6 mb-3">
-				                                <label for="validationCustomUsername">E-mail</label>
-				                               	<input type="text" class="form-control" id="validationCustom03" required name="email" value="{{ $cliente->email ?? old('email') }}" />
-				                            </div>
-				                        </div>
+				                            <div class="col-lg-3 radio-select">
+                                                <div class="mt-4 mt-lg-0">
+                                                    <h5 class="font-size-14 mb-3">Em estoque</h5>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="customRadio1" name="estoque" class="custom-control-input" value="sim"{{ $produto->estoque === 'sim' ? 'checked' : null }} />
+                                                        <label class="custom-control-label" for="customRadio1">Sim</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" id="customRadio2" name="estoque" class="custom-control-input" value="nao"{{ $produto->estoque == 'nao' ? 'checked' : null }} />
+                                                        <label class="custom-control-label" for="customRadio2">Não</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+				                        </div>	
 
-				                         <div class="row">
-				                            <div class="col-md-4 mb-3">
-				                                <label for="validationCustom03">Telefone 1</label>
-				                                <input type="tel" class="form-control" id="validationCustom05" name="telefone01" value="{{ $cliente->telefone01 ?? old('telefone01') }}" />
-				                            </div>
-				                            <div class="col-md-4 mb-3">
-				                                <label for="validationCustomUsername">Telefone 2</label>
-				                               	<input type="tel" class="form-control" id="validationCustom06" name="telefone02" value="{{ $cliente->telefone02 ?? old('telefone02') }}" />
-				                            </div>
-				                            <div class="col-md-4 mb-3">
-				                                <label for="validationCustomUsername">Telefone 3</label>
-				                               	<input type="tel" class="form-control" id="validationCustom07" name="telefone03" value="{{ $cliente->telefone03 ?? old('telefone03') }}" />
-				                            </div>
-				                        </div>
-
-				                        <div class="row">
-				                            <div class="col-md-4 mb-3">
-				                                <label for="validationCustom03">Telefone 4</label>
-				                                <input type="tel" class="form-control" id="validationCustom08" name="telefone04" value="{{ $cliente->telefone04 ?? old('telefone04') }}" />
-				                            </div>
-				                            <div class="col-md-4 mb-3">
-				                                <label for="validationCustomUsername">Telefone 5</label>
-				                               	<input type="tel" class="form-control" id="validationCustom09" name="telefone05" value="{{ $cliente->telefone05 ?? old('telefone05') }}" />
-				                            </div>
-				                            <div class="col-md-4 mb-3">
-				                                <label for="validationCustomUsername">Telefone 6</label>
-				                               	<input type="tel" class="form-control" id="validationCustom10" name="telefone06" value="{{ $cliente->telefone06 ?? old('telefone06') }}" />
-				                            </div>
-				                        </div>
-
-				                        <button class="btn btn-primary" type="submit">Salvar Alterações</button>
+				                        <div class="button-items">			              
+				                        	<button class="btn btn-primary bt-salvar" type="submit">Salvar alterações</button>
+				                        	<a href="{{ route('produtos.index') }}" class="btn btn-light waves-effect">Cancelar</a>
+				                        </div>	
 				                   </form>
 			                   </div>
 		                   </div>
@@ -110,6 +114,18 @@
 		<!-- End content-->
 		  
 @endsection
+
+@section('scripts')
+
+    <!-- Script JS -->
+    <script type="text/javascript">
+        // Funçao para fechar div de msg de alerta
+        function fecharAlert() {
+            document.getElementById("close").style.display = "none";
+        }
+    </script>
+
+@stop
 
 
 

@@ -22,6 +22,9 @@
         <script src="{{ asset( 'template-front/assets/libs/metismenu/metisMenu.min.js') }}"></script>
         <script src="{{ asset( 'template-front/assets/libs/simplebar/simplebar.min.js') }}"></script>
         <script src="{{ asset( 'template-front/assets/libs/node-waves/waves.min.js') }}"></script>
+        <script src="{{ asset( 'template-front/assets/libs/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
+        <script src="{{ asset('template-front/assets/js/pages/form-mask.init.js') }}"></script>
+
 
         @yield('scripts')
 

@@ -16,8 +16,6 @@ class ProdutoController extends Controller
         
         $produtos = Produto::orderBy('id', 'desc')->with('categoria')->get();
 
-        // dd($produtos);
-
         return view('produtos.lista', compact('produtos'));
     }
 
@@ -32,13 +30,11 @@ class ProdutoController extends Controller
 
     
     public function store(Request $request) {
-        
 
         $validator = $this->validate($request, [
             'nome'       => 'required|min:5',
             'categoria'  => 'required',
-            'preco'      => 'required',
-            'estoque'    => 'required'   
+            'preco'      => 'required'
 
         ]);
 
@@ -52,13 +48,13 @@ class ProdutoController extends Controller
             ]);
 
             # status de retorno
-            Session::flash('success', ' O produto foi cadastrado com sucesso!');
+            Session::flash('success', 'O produto foi cadastrado com sucesso!');
             return redirect()->route('produtos.index');
 
         }catch (\Exception $exception) {
 
             # status de retorno
-            Session::flash('error', ' O produto não pôde ser cadastrado!');
+            Session::flash('error', 'O produto não pôde ser cadastrado!');
             return redirect()->back()->withInput();
         }
 
@@ -68,26 +64,65 @@ class ProdutoController extends Controller
     }
 
     
-    public function show($id)
+    public function show($id) 
     {
         //
     }
 
    
-    public function edit($id)
-    {
-        //
+    public function edit($id) {
+
+        $produto    = Produto::findOrFail($id);
+        $categorias = Categoria::all();
+        
+        return view('produtos.edit', compact('categorias', 'produto'));
     }
 
     
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+
+        $validator = $this->validate($request, [
+            'nome'       => 'required|min:5',
+            'preco'      => 'required'
+
+        ]);
+        
+        $produto    = Produto::findOrFail($id);
+
+        $produto->nome          = $request->input('nome');
+        $produto->categoria_id  = $request->input('categoria');
+        $produto->preco         = $request->input('preco');
+        $produto->estoque       = $request->input('estoque');
+
+        $produto->save();
+
+        # status de retorno
+        Session::flash('success', ' O produto foi atualizado com sucesso!');
+        return redirect()->route('produtos.index');
+
+        
     }
 
-    
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        
+        $produto = Produto::findOrFail($id);
+
+        $produto->delete();
+
+        # status de retorno
+        Session::flash('success', ' O produto foi deletado com sucesso!');
+        return redirect()->route('produtos.index');
+    }
+
+    public function pesquisarProduto(Request $request) {
+        
+        $word = $request->search;
+
+        $produtos = Produto::where('nome', 'LIKE', "%{$word}%")->get();
+
+        $count = count($produtos);
+
+        return view('produtos.lista',compact('produtos', 'count'));
+
     }
 }

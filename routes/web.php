@@ -14,6 +14,10 @@
 
 ## rota para home page
 Route::get('/', 'ProdutoController@index')->name('produtos.index');
+
+## rota para pesquisar produtos
+Route::get('/search', 'ProdutoController@pesquisarProduto')->name('produtos.search');
+
 ## rota resource de produtos
 Route::resource('produtos', 'ProdutoController');
 
