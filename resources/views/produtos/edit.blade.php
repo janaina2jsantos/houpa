@@ -36,7 +36,6 @@
                                         <li class="breadcrumb-item"><a href="javascript: void(0);">Editar produto</a></li>
                                     </ol>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -58,7 +57,6 @@
 							       @endif
 						   		<div class="card-body">
 				                   <form action="{{ route('produtos.update', $produto->id) }}" method="POST">
-										
 										@csrf
                     					{{ method_field('PATCH') }}
 

@@ -1,6 +1,6 @@
           
 
-          <footer class="footer">
+        <footer class="footer">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-6">
@@ -25,7 +25,8 @@
         <script src="{{ asset( 'template-front/assets/libs/inputmask/min/jquery.inputmask.bundle.min.js') }}"></script>
         <script src="{{ asset('template-front/assets/js/pages/form-mask.init.js') }}"></script>
 
-
+        <script src="{{ asset('template-front/assets/js/app.js') }}"></script>
+        
         @yield('scripts')
 
     </body>

@@ -49,7 +49,6 @@
                                         <li class="breadcrumb-item"><a href="{{ route('produtos.index') }}">Produtos</a></li>
                                     </ol>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -116,7 +115,6 @@
                                                         </tr>
                                                     @endforeach
                                                 @endif
-                                                
                                             </tbody>
                                         </table>
                                     </div>

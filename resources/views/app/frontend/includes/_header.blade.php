@@ -8,11 +8,6 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" />
 
-    <link href="{{ asset('template-front/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
-
-   {{--  <link href="{{ asset('template-front/assets/libs/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('template-front/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" type="text/css" /> --}}
-
     <!-- Bootstrap Css -->
     <link href="{{ asset('template-front/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -48,7 +43,6 @@
 </head>
 
 <body data-sidebar="dark">
-
     <header id="page-topbar">
         <div class="navbar-header">
             <div class="d-flex">
@@ -56,7 +50,7 @@
                 <div class="navbar-brand-box">
                     <a href="#" class="logo logo-light">
                         <span class="logo-lg">
-                            <h2>Houpa!</h2>
+                            <h2><img src="{{ asset('images/logo_branco_home.png') }}" alt="logo houpa!"></h2>
                         </span>
                     </a>
                 </div>
@@ -75,7 +69,6 @@
             </div>
 
             <div class="d-flex">
-
                 <div class="dropdown d-inline-block d-lg-none ml-2">
                     <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -118,7 +111,6 @@
                         <a class="dropdown-item" href="#"><i class="mdi mdi-logout font-size-16 align-middle mr-1"></i> Logout</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </header>
